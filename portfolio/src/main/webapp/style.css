@@ -25,7 +25,7 @@ img.resize {
 }
 
 /* Clear floats after image containers */
-.row::after {
+.row:after {
   content: "";
   clear: both;
   display: table;
@@ -34,3 +34,4 @@ img.resize {
 .fa:hover {
     opacity: 0.7;
 }
+
