@@ -16,6 +16,7 @@ package com.google.sps.servlets;
 
 import com.google.gson.Gson;
 import java.util.ArrayList;
+import java.util.List;
 import java.io.IOException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -26,24 +27,47 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
     
-  @Override
-  public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    ArrayList<String> comments_list= new ArrayList<String>();
-    comments_list.add("Brakia");
-    comments_list.add("Brakia");
-    comments_list.add("Brakia");
-    response.setContentType("text/html;");
-    response.getWriter().println(comments_list);
-
-  }
+  private List<String> messages = new ArrayList<String>();
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     // Get the input from the form.
     String name = request.getParameter("name");
 	response.getOutputStream().println("<h1>Hello " + name + "!</h1>");
+	String message = request.getParameter("message");
+	String chatMessage = name + ": " + message;
+	messages.add(chatMessage);
+	response.getOutputStream().println("<p>Your message has been received.</p>");
+	response.getOutputStream().println("<p>Click <a href=\"/data\">here</a> to go back to the comments.</p>");
+
+    
+	
 
   }
+
+
+
+
+  @Override
+  public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    response.getOutputStream().println("<h1>Comments</h1>");
+	response.getOutputStream().println("<hr/>");
+		
+	for(int i = 0; i < messages.size(); i++){
+		response.getOutputStream().println("<p>" + messages.get(i) + "</p>");
+	}
+	response.getOutputStream().println("<hr/>");
+		
+	response.getOutputStream().println("<form action=\"/data\" method=\"POST\">");
+	response.getOutputStream().println("<input type=\"text\" name=\"name\" value=\"Ada\">");
+	response.getOutputStream().println("<input type=\"text\" name=\"message\" value=\"Type here.\">");
+	response.getOutputStream().println("<input type=\"submit\" value=\"Send\">");
+	response.getOutputStream().println("</form>");
+	}
+
+
+
+
   
 
   private String convertToJsonUsingGson(ArrayList<String> comments_list) {

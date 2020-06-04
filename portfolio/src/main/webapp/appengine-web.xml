@@ -7,4 +7,14 @@
     <!-- prevent unwanted caching when accessing via the web preview server -->
     <include path="/**" expiration="0s" />
   </static-files>
+
+  <servlet>
+		<servlet-name>DataServlet</servlet-name>
+		<servlet-class>DataServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>DataServlet</servlet-name>
+		<url-pattern>/data</url-pattern>
+	</servlet-mapping>
 </appengine-web-app>
