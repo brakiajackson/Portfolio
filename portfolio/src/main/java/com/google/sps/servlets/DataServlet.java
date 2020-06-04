@@ -14,6 +14,10 @@
 
 package com.google.sps.servlets;
 
+
+import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +44,17 @@ public class DataServlet extends HttpServlet {
 	response.getOutputStream().println("<p>Your message has been received.</p>");
 	response.getOutputStream().println("<p>Click <a href=\"/data\">here</a> to go back to the comments.</p>");
 
+
+
+    Entity taskEntity = new Entity("name");
+    taskEntity.setProperty("name", name);
+    taskEntity.setProperty("message", message);
+
+
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    datastore.put(taskEntity);
+
+    response.sendRedirect("/index.html");
     
 	
 
@@ -77,6 +92,8 @@ public class DataServlet extends HttpServlet {
   }
 
   
+
+
 }
 
 
