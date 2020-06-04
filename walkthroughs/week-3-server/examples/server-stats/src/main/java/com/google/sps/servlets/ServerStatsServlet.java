@@ -73,4 +73,11 @@ public final class ServerStatsServlet extends HttpServlet {
     String json = gson.toJson(serverStats);
     return json;
   }
+
+  <dependency>
+    <groupId>com.google.code.gson</groupId>
+    <artifactId>gson</artifactId>
+    <version>2.8.6</version>
+  </dependency>
+
 }
